@@ -43,9 +43,9 @@ class kms_win (
   }
 
 
-  exec { 'set-KeyManagementServiceName':
+  exec { 'set-KeyManagementServicePort':
     command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServicePort -Value '${KeyManagementServicePort}' -PropertyType String -Force",
-    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServiceName -eq '${KeyManagementServicePort}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServicePort' -ErrorAction Stop)) {exit 1}",
+    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServicePort -eq '${KeyManagementServicePort}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServicePort' -ErrorAction Stop)) {exit 1}",
     provider => powershell,
   }  
 
