@@ -12,8 +12,8 @@
 # === Examples
 #
 #  class { kms_win:
-#    KeyManagementServiceName = 'kmsserver.contoso.com',
-#    KeyManagementServicePort = '1688',
+#    key_management_service_name = 'kmsserver.contoso.com',
+#    key_management_service_port = '1688',
 #  }
 #
 # === Authors
@@ -26,26 +26,25 @@
 #
 class kms_win (
 
-  $KeyManagementServiceName = undef,
-  $KeyManagementServicePort = 1688,
-  
+  $key_management_service_name = undef,
+  $key_management_service_port = undef,
 
 ){
 
   # parameter validation
-  validate_string($KeyManagementServiceName)
-  validate_re($KeyManagementServicePort, '\d+', 'KeyManagementServicePort parameter must be a number.')
+  #validate_string($KeyManagementServiceName)
+  #validate_re($KeyManagementServicePort, '\d+', 'KeyManagementServicePort parameter must be a number.')
 
-  exec { 'set-KeyManagementServiceName':
-    command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServiceName -Value '${KeyManagementServiceName}' -PropertyType String -Force",
-    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServiceName -eq '${KeyManagementServiceName}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServiceName' -ErrorAction Stop)) {exit 1}",
+  exec { 'set-keymanagementservicename':
+    command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServiceName -Value '${key_management_service_name}' -PropertyType String -Force",
+    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServiceName -eq '${key_management_service_name}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServiceName' -ErrorAction Stop)) {exit 1}",
     provider => powershell,
   }
 
 
-  exec { 'set-KeyManagementServicePort':
-    command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServicePort -Value '${KeyManagementServicePort}' -PropertyType String -Force",
-    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServicePort -eq '${KeyManagementServicePort}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServicePort' -ErrorAction Stop)) {exit 1}",
+  exec { 'set-keymanagementserviceport':
+    command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServicePort -Value '${key_management_service_port}' -PropertyType String -Force",
+    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServicePort -eq '${key_management_service_port}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServicePort' -ErrorAction Stop)) {exit 1}",
     provider => powershell,
   }  
 
