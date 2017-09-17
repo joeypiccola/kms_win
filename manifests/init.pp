@@ -50,8 +50,7 @@ class kms_win (
   }
 
   exec { 'slmgr_activation':
-    command  => '$oi = Start-Process -FilePath C:\Windows\System32\slmgr.vbs -ArgumentList '/ato' -PassThru',
-    provider => powershell,
+    command  => 'cmd.exe cscript C:\Windows\System32\slmgr.vbs /ato',
   }
 
 }
