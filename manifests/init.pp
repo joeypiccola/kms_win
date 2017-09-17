@@ -50,6 +50,7 @@ class kms_win (
   }
 
   exec { 'slmgr_activation':
+    path        => 'C:/Windows/system32',
     command     => 'cscript.exe C:\Windows\System32\slmgr.vbs /ato',
     refreshonly => true,
   }
