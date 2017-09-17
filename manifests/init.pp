@@ -32,20 +32,19 @@ class kms_win (
 ){
 
   # parameter validation
-  #validate_string($KeyManagementServiceName)
-  #validate_re($KeyManagementServicePort, '\d+', 'KeyManagementServicePort parameter must be a number.')
+  validate_string($key_management_service_name)
+  validate_re($key_management_service_port, '\d+', 'key_management_service_port parameter must be a number.')
 
-  exec { 'set-keymanagementservicename':
-    command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServiceName -Value '${key_management_service_name}' -PropertyType String -Force",
-    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServiceName -eq '${key_management_service_name}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServiceName' -ErrorAction Stop)) {exit 1}",
-    provider => powershell,
+  registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName':
+    ensure => present,
+    type   => string,
+    data   => $key_management_service_name,
   }
-
-
-  exec { 'set-keymanagementserviceport':
-    command  => "New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" -Name KeyManagementServicePort -Value '${key_management_service_port}' -PropertyType String -Force",
-    onlyif   => "if (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform').KeyManagementServicePort -eq '${key_management_service_port}') -and (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform' | Select-Object -ExpandProperty 'KeyManagementServicePort' -ErrorAction Stop)) {exit 1}",
-    provider => powershell,
-  }  
+  
+  registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort':
+    ensure => present,
+    type   => string,
+    data   => $key_management_service_port,
+  }
 
 }
