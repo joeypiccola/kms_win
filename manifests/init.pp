@@ -39,12 +39,19 @@ class kms_win (
     ensure => present,
     type   => string,
     data   => $key_management_service_name,
+    notify => exec['slmgr_activation'],
   }
   
   registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort':
     ensure => present,
     type   => string,
     data   => $key_management_service_port,
+    notify => exec['slmgr_activation'],
+  }
+
+  exec { 'slmgr_activation':
+    command  => '$oi = Start-Process -FilePath C:\Windows\System32\slmgr.vbs -ArgumentList '/ato' -PassThru',
+    provider => powershell,
   }
 
 }
