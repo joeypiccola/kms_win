@@ -32,8 +32,8 @@ class kms_win (
 ){
 
   # parameter validation
-  #validate_string($key_management_service_name)
-  #validate_re($key_management_service_port, '\d+', 'key_management_service_port parameter must be a number.')
+  validate_string($key_management_service_name)
+  validate_re($key_management_service_port, '\d+', 'key_management_service_port parameter must be a number.')
 
   registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName':
     ensure => present,
