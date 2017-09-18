@@ -27,32 +27,40 @@
 class kms_win (
 
   $key_management_service_name = undef,
-  $key_management_service_port = undef,
+  $key_management_service_port = '1688',
+  $attempt_activation = true,
 
 ){
 
   # parameter validation
-  validate_string($key_management_service_name)
+  unless is_domain_name($key_management_service_name) {
+    fail('Class[kms_win] key_management_service_name parameter must be a valid rfc1035 domain name')
+  }  
   validate_re($key_management_service_port, '\d+', 'key_management_service_port parameter must be a number.')
+  validate_bool($attempt_activation)
 
   registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName':
     ensure => present,
     type   => string,
     data   => $key_management_service_name,
-    notify => Exec['slmgr_activation'],
   }
   
   registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort':
     ensure => present,
     type   => string,
     data   => $key_management_service_port,
-    notify => Exec['slmgr_activation'],
   }
 
-  exec { 'slmgr_activation':
-    path        => 'C:/Windows/system32',
-    command     => 'cscript.exe C:\Windows\System32\slmgr.vbs /ato',
-    refreshonly => true,
+  if $attempt_activation {
+    exec { 'slmgr_activation':
+      path        => 'C:/Windows/system32',
+      command     => 'cscript.exe C:\Windows\System32\slmgr.vbs /ato',
+      subscribe   => [
+        Registry_value["HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName"],
+        Registry_value["HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort"]
+      ],
+      refreshonly => true,
+    }
   }
 
 }
