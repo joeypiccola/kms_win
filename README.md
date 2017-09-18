@@ -9,7 +9,7 @@ Manage the KMS client settings on a Windows machine.
  * ```attempt_activation```          - [Optional] Whether or not to run 'slmgr /ato' after setting either the KMS name or port. Defaults to 'true'.
 
 ## Usage
-This module sets the KMS client settings on a Windows machine.
+At a minimum set the ```key_management_service_name``` to the FQDN of your KMS server.
 
 ## Example
 ```ruby
