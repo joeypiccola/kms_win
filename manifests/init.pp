@@ -1,19 +1,23 @@
 # == Class: kms_win
 #
-#   Manage the timezone on windows systems. Use WMI to verify what the timezone
-#   currently is and tzutil.exe to set it.
+# Manage the KMS client settings on a Windows machine.
 #
 # === Parameters
 #
-# [*timezone*]
-#   The timezone to use. For a full list of available timezone run tzutil /l.
-#   Use the listed time zone ID (e.g. 'Eastern Standard Time')
+# [*key_management_service_name*]
+#   The FQDN of the KMS server.
+#
+# [*key_management_service_port*]
+#   The port of the KMS server. Defaults to '1688'.
+#
+# [*attempt_activation*]
+#   Whether or not to run 'slmgr /ato' after setting either the KMS name or port.
+#   Valid values are `true` and `false`. Defaults to `true`.
 #
 # === Examples
 #
 #  class { kms_win:
 #    key_management_service_name = 'kmsserver.contoso.com',
-#    key_management_service_port = '1688',
 #  }
 #
 # === Authors
@@ -22,7 +26,7 @@
 #
 # === Copyright
 #
-# Copyright (C) 2016 Joey Piccola.
+# Copyright (C) 2017 Joey Piccola.
 #
 class kms_win (
 
