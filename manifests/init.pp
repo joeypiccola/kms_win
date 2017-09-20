@@ -60,8 +60,8 @@ class kms_win (
       path        => 'C:/Windows/system32',
       command     => 'cscript.exe C:\Windows\System32\slmgr.vbs /ato',
       subscribe   => [
-        Registry_value["HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName"],
-        Registry_value["HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort"]
+        Registry_value['HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName'],
+        Registry_value['HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort']
       ],
       refreshonly => true,
     }
