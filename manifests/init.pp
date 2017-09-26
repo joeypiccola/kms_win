@@ -43,25 +43,26 @@ class kms_win (
   validate_re($key_management_service_port, '\d+', 'key_management_service_port parameter must be a number.')
   validate_bool($attempt_activation)
 
-  registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName':
+  registry_value { 'KeyManagementServiceName':
     ensure => present,
+    path   => 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName',
     type   => string,
     data   => $key_management_service_name,
   }
   
-  registry_value { 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort':
+  registry_value { 'KeyManagementServicePort':
     ensure => present,
+    path   => 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort',
     type   => string,
     data   => $key_management_service_port,
-  }
-
+  
   if $attempt_activation {
     exec { 'slmgr_activation':
       path        => 'C:/Windows/system32',
       command     => 'cscript.exe C:\Windows\System32\slmgr.vbs /ato',
       subscribe   => [
-        Registry_value['HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServiceName'],
-        Registry_value['HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort']
+        Registry_value['KeyManagementServiceName'],
+        Registry_value['KeyManagementServicePort']
       ],
       refreshonly => true,
     }
