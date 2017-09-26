@@ -55,6 +55,7 @@ class kms_win (
     path   => 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort',
     type   => string,
     data   => $key_management_service_port,
+  }
   
   if $attempt_activation {
     exec { 'slmgr_activation':
