@@ -39,7 +39,7 @@ class kms_win (
   # parameter validation
   unless is_domain_name($key_management_service_name) {
     fail('Class[kms_win] key_management_service_name parameter must be a valid rfc1035 domain name')
-  }  
+  }
   validate_re($key_management_service_port, '\d+', 'key_management_service_port parameter must be a number.')
   validate_bool($attempt_activation)
 
@@ -49,14 +49,14 @@ class kms_win (
     type   => string,
     data   => $key_management_service_name,
   }
-  
+
   registry_value { 'KeyManagementServicePort':
     ensure => present,
     path   => 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\KeyManagementServicePort',
     type   => string,
     data   => $key_management_service_port,
   }
-  
+
   if $attempt_activation {
     exec { 'slmgr_activation':
       path        => 'C:/Windows/system32',
