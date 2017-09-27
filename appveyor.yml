@@ -19,6 +19,9 @@ environment:
       CHECK: metadata_lint
     -
       RUBY_VERSION: 24-x64
+      CHECK: rubocop
+    -
+      RUBY_VERSION: 24-x64
       CHECK: spec
     -
       RUBY_VERSION: 21-x64
