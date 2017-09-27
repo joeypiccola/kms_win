@@ -1,0 +1,31 @@
+{
+  "name": "jpi-kms_win",
+  "version": "0.1.0",
+  "author": "Joey Piccola",
+  "summary": "Manage the KMS client settings on a Windows machine.",
+  "license": "MIT",
+  "source": "",
+  "dependencies": [
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.20.0" },
+    { "name": "puppetlabs/registry", "version_requirement": ">= 1.1.4" }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "windows",
+      "operatingsystemrelease": [
+        "7",
+        "2012 R2",
+        "2016"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "pdk-version": "1.1.0",
+  "template-url": "file://C:/PROGRA~1/PUPPET~1/DevelopmentKit/share/cache/pdk-module-template.git",
+  "template-ref": "heads/master-0-g54e88a4"
+}
