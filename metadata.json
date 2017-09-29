@@ -4,7 +4,9 @@
   "author": "Joey Piccola",
   "summary": "Manage the KMS client settings on a Windows machine.",
   "license": "MIT",
-  "source": "",
+  "source": "https://github.com/joeypiccola/kms_win",
+  "project_page": "https://github.com/joeypiccola/kms_win",
+  "issues_url": "https://github.com/joeypiccola/kms_win/issues",  
   "dependencies": [
     { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.20.0" },
     { "name": "puppetlabs/registry", "version_requirement": ">= 1.1.4" }
