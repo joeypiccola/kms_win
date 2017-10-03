@@ -15,7 +15,7 @@ At a minimum set the ```key_management_service_name``` to the FQDN of your KMS s
 
 ## Example
 ```ruby
-class { kms_win:
+class { 'kms_win':
   key_management_service_name = 'kmsserver.contoso.com',
 }
 ```
