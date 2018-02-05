@@ -1,0 +1,6 @@
+{
+    "puppet_task_version": 1,
+    "description": "A task for running slmgr.vbs /ato.",
+    "input_method": "powershell",
+    "parameters": { }
+  }
