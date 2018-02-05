@@ -4,7 +4,7 @@
     "input_method": "powershell",
     "parameters": {
       "activation_key": {
-        "description": "The activation key to be installed via slmgr.vbs /ipk",
+        "description": "The activation key to be installed via slmgr.vbs /ipk.",
         "type": "String"
       }
     }
