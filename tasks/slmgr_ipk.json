@@ -3,9 +3,9 @@
     "description": "A task for installing a windows product key with slmgr.vbs.",
     "input_method": "powershell",
     "parameters": {
-      "activation_key": {
-        "description": "The activation key to be installed via slmgr.vbs /ipk.",
-        "type": "String"
-      }
+        "activation_key": {
+            "description": "The activation key to be installed via slmgr.vbs /ipk.",
+            "type": "String"
+        }
     }
-  }
+}
